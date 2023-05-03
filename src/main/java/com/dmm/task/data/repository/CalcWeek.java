@@ -5,7 +5,7 @@ import java.time.DayOfWeek;
 public class CalcWeek {
 	public int weekcal(DayOfWeek week) {
 		int weeknum = 0;
-		switch(week) {
+		switch (week) {
 		case SUNDAY:
 			weeknum = 1;
 			break;
@@ -28,9 +28,9 @@ public class CalcWeek {
 			weeknum = 7;
 			break;
 		}
-		
+
 		return weeknum;
-		
+
 	}
 
 }

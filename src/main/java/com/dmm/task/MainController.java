@@ -29,9 +29,8 @@ public class MainController {
 	@GetMapping("/main")
 
 	public String getCalender(@AuthenticationPrincipal AccountUserDetails user,
-			@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,Model model) {
+			@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, Model model) {
 
-		
 		LocalDate loday = null;
 		if (date == null) {
 
@@ -41,7 +40,7 @@ public class MainController {
 			LocalDate nextdate = loday.plusMonths(1);
 			model.addAttribute("prev", prevdate);
 			model.addAttribute("next", nextdate);
-			
+
 		} else {
 
 			loday = date;
@@ -54,12 +53,8 @@ public class MainController {
 		List<LocalDate> week = new ArrayList<>();
 		List<List<LocalDate>> matrix = new ArrayList<>();
 
-		// LocalDateTime now = LocalDateTime.now();
-
-		// LocalDate loday = LocalDate.of(now.getYear(), now.getMonthValue(), 1);
-
 		int lastday = loday.lengthOfMonth();
-		LocalDate nextmonth =  LocalDate.of(loday.getYear(), loday.getMonthValue(), lastday);
+		LocalDate nextmonth = LocalDate.of(loday.getYear(), loday.getMonthValue(), lastday);
 		DayOfWeek nextdayweek = nextmonth.getDayOfWeek();
 		CalcWeek calw = new CalcWeek();
 		int weeknum = calw.weekcal(nextdayweek);
@@ -83,7 +78,6 @@ public class MainController {
 		int weeknum2 = calw.weekcal(prevdayweek);
 		lastday = lastday + weeknum2;
 		LocalDate firstday = loday;
-		
 
 		for (int i = 1; i <= 7; i++) {
 			week.add(loday);
@@ -108,7 +102,7 @@ public class MainController {
 			loday = loday.plusDays(1);
 		}
 
-		//LocalDate firstday = LocalDate.of(loday.getYear(), loday.getMonthValue(), 1);
+		// LocalDate firstday = LocalDate.of(loday.getYear(), loday.getMonthValue(), 1);
 		while (true) {
 			DayOfWeek lodayweek = firstday.getDayOfWeek();
 
@@ -143,12 +137,9 @@ public class MainController {
 			DailyTaskList.add(Tlist.get(i).getDate(), Tlist.get(i));
 		}
 
-		
-
 		model.addAttribute("month", dayofMonth);
 		model.addAttribute("matrix", matrix);
 		model.addAttribute("tasks", DailyTaskList);
-		
 
 		return "/main";
 

@@ -18,33 +18,35 @@ import com.dmm.task.service.AccountUserDetails;
 
 @Controller
 public class EditController {
-	
+
 	@Autowired
 	private TasksRepository taskrepo;
-	
+
 	@GetMapping("/main/edit/{id}")
-	
-	public String getTaskid(@PathVariable Integer id , Model model) {
+
+	public String getTaskid(@PathVariable Integer id, Model model) {
 		Tasks editTaskslist = taskrepo.findById(id).orElseThrow();
-		model.addAttribute("task",editTaskslist);
+		model.addAttribute("task", editTaskslist);
 		return "edit";
 	}
-	
+
 	@Autowired
 	private TasksUpdate taskupdate;
+
 	@PostMapping("/main/edit/{id}")
 	String EditTask(@Validated TaskEditForm taskEditForm, BindingResult bindingResult,
-		@AuthenticationPrincipal AccountUserDetails user, Model model,@PathVariable Integer id){
-		
-		taskupdate.update(user,taskEditForm, id);
+			@AuthenticationPrincipal AccountUserDetails user, Model model, @PathVariable Integer id) {
+
+		taskupdate.update(user, taskEditForm, id);
 		model.addAttribute("date", taskEditForm.getDate());
-		
+
 		return "redirect:/main";
 	}
+
 	@PostMapping("/main/delete/{id}")
 	public String delete(@PathVariable Integer id) {
 		taskrepo.deleteById(id);
-		
+
 		return "redirect:/main";
 	}
 

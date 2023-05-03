@@ -12,26 +12,25 @@ import com.dmm.task.service.AccountUserDetails;
 @Service
 @Transactional
 public class TasksUpdate {
-	
+
 	@Autowired
 	private TasksRepository taskrepo;
-	
-	public void update(AccountUserDetails user,TaskEditForm taskEditForm,int id) {
+
+	public void update(AccountUserDetails user, TaskEditForm taskEditForm, int id) {
+
 		
+		Tasks tasks = new Tasks();
+
 		
-	    // データベースに登録する値を保持するインスタンスの作成
-	    Tasks tasks = new Tasks();
-			
-	    // 画面から受け取った値を設定する
-	    tasks.setId(id);
-	    tasks.setName(user.getName());
-	    tasks.setDate(taskEditForm.getDate());
-	    tasks.setTitle(taskEditForm.getTitle());
-	    tasks.setText(taskEditForm.getText());
-	    tasks.setDone(taskEditForm.isDone());
-			
-	    // データベースを更新する
-	    taskrepo.save(tasks);
+		tasks.setId(id);
+		tasks.setName(user.getName());
+		tasks.setDate(taskEditForm.getDate());
+		tasks.setTitle(taskEditForm.getTitle());
+		tasks.setText(taskEditForm.getText());
+		tasks.setDone(taskEditForm.isDone());
+
+		
+		taskrepo.save(tasks);
 	}
 
 }
